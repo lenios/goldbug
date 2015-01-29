@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=GoldBug
+Name[en_US]=GoldBug
+Comment=Secure Instant Messenger
+GenericName=Instant Messenger
+Exec=GoldBug
+Terminal=false
+Type=Application
+Icon=/usr/share/goldbug/goldbug.ico
+Categories=Application;Qt;Network;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;image/gif;image/jpeg;image/png;
+StartupNotify=true

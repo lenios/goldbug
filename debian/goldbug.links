@@ -1,0 +1,2 @@
+#! /usr/bin/dh-exec
+/usr/share/spot-on/Translations /usr/share/goldbug/Translations

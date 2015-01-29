@@ -1,0 +1,44 @@
+--- a/libSpotOn/Makefile.linux
++++ b/libSpotOn/Makefile.linux
+@@ -1,6 +1,5 @@
+-all:	libspoton.o
+-	gcc $(LDFLAGS) -shared -Wl,-soname,libspoton.so \
+-	-o libspoton.so $? -lgcrypt -lpthread -lsqlite3
++VERSION:=0.18
++all:	library	
+ 	gcc $(CFLAGS) -Wall -Werror -Wextra \
+ 	test.c -o test -L. -lspoton -Wl,-rpath,.
+ 
+@@ -11,17 +10,18 @@
+ 	-c -o libspoton.o libspoton.c
+ 
+ clean:
+-	rm -f libspoton.o libspoton.so
++	rm -f libspoton.o libspoton.so*
+ 	rm -f shared.db
+ 	rm -f test
+ 
+ install: all
+ 	install -o root -g root -d /usr/local/lib
+-	install -o root -g root libspoton.so /usr/local/lib
++	install -o root -g root libspoton.so.$(VERSION) /usr/local/lib
+ 
+ library: libspoton.o
+ 	gcc $(LDFLAGS) -shared -Wl,-soname,libspoton.so \
+-	-o libspoton.so $? -lgcrypt -lpthread -lsqlite3
++	-o libspoton.so.$(VERSION) $? -lgcrypt -lpthread -lsqlite3
++	cp libspoton.so.$(VERSION) libspoton.so
+ 
+ purge:
+ 	rm -f *~*
+--- a/branches/0.18/Kernel/spot-on-kernel.qt5.pro
++++ b/branches/0.18/Kernel/spot-on-kernel.qt5.pro
+@@ -26,7 +26,7 @@
+ 
+ QMAKE_CLEAN     += ../Spot-On-Kernel ../../../libNTRU/*.so \
+ 		   ../../../libNTRU/src/*.o ../../../libSpotOn/*.o \
+-		   ../../../libSpotOn/*.so ../../../libSpotOn/test
++		   ../../../libSpotOn/*.so.* ../../../libSpotOn/test
+ QMAKE_DISTCLEAN += -r temp .qmake.cache .qmake.stash
+ QMAKE_CXXFLAGS_RELEASE -= -O2
+ QMAKE_CXXFLAGS_RELEASE += -fPIE -fstack-protector-all -fwrapv \

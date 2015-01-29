@@ -1,0 +1,5 @@
+spot-on for Debian
+-----------------
+* This is still Work In Progress! DO NOT use it on production, could you say. This is only provided to help people build it. Package structure might change in the future (libspot-on will most probably be packaged separately)
+* oddly enough, "qt5-default, libqt5quick5, qtquick1-5-dev, qtdeclarative5-dev, libxslt1-dev, libglib2.0-dev, libxml2-dev, libqt5opengl5-dev, libgstreamer0.10-dev, libgstreamer-plugins-base0.10-dev" build dependencies are all only needed to build on debian. It builds fine without them on an ubuntu >=12.04 pbuilder...
+ -- Richard Sellam <richard.sellam@orvidia.fr>, Sat, 19 Oct 2013 22:42:53 +0100

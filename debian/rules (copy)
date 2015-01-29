@@ -1,0 +1,140 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+export DEB_BUILD_HARDENING=1
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
+PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog | grep ^Source))
+VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m{^Version:\s+(?:\d+:)?(\d.*)(?:\-\d+.*)};')
+
+VERSION=0.17
+
+## http://wiki.debian.org/onlyjob/get-orig-source
+.PHONY: get-orig-source
+get-orig-source: $(PKG)_$(VER)$(DTYPE).orig.tar.xz $(info I: $(PKG)_$(VER)$(DTYPE))
+	@
+
+#DEB_DEBIAN_DIR=$(dir $(firstword $(MAKEFILE_LIST)))
+#get-orig-source:
+#	# Uscan will read debian/watch, grab the correct version, repack, and leave it in the
+#	# current directory, given the path to the source package.
+#	uscan --noconf --force-download --rename --repack --destdir=. \
+#	$(DEB_DEBIAN_DIR)/..
+#	$(if $(wildcard $(PKG)-$(VER)),$(error $(PKG)-$(VER) exist, aborting..))
+#	@echo "# Extracting..."
+#	mkdir $(PKG)-$(VER) \
+#	&& tar -xf $(PKG)_*.orig.tar.gz --directory $(PKG)-$(VER) --strip-components 1 \
+#	|| $(RM) -r $(PKG)-$(VER)
+#	$(RM) -v $(PKG)_*.orig.tar.gz
+#	@echo "# Packing..."
+#	#we need to clean up directories
+#	find -L "$(PKG)-$(VER)" -xdev -type f -print | sort \
+#	| XZ_OPT="-7v" tar -caf "$(PKG)_$(VER).orig.tar.xz" -T- --owner=root --group=root --mode=a+rX \
+#	&& $(RM) -r "$(PKG)-$(VER)"
+
+
+
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	touch configure-stamp
+	qmake -o Makefile branches/$(VERSION)/spot-on.qt5.pro
+	qmake -o Makefile.gb branches/$(VERSION)/goldbug.qt5.pro
+	touch $@
+
+build: build-arch build-indep
+build-arch: build-stamp
+build-indep:
+build-stamp: configure-stamp  
+	dh_testdir
+	$(MAKE) -f ../../Makefile -C branches/$(VERSION)/
+	$(MAKE) -f ../../Makefile.gb -C branches/$(VERSION)/
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+	rm -rf branches/$(VERSION)/temp
+	rm -rf branches/$(VERSION)/GoldBug
+	rm -rf branches/$(VERSION)/Spot-On
+	rm -rf branches/$(VERSION)/Spot-On-Kernel
+	rm -rf branches/$(VERSION)/Kernel/temp
+	rm -rf branches/$(VERSION)/Kernel/Makefile.spot-on-kernel.qt5
+	rm -rf branches/$(VERSION)/Makefile.spot-on-gui.qt5
+	rm -rf branches/$(VERSION)/Makefile.goldbug-gui.qt5
+	# Add here commands to clean up after the build process.
+	[ ! -f Makefile ] || $(MAKE) distclean
+	[ ! -f Makefile.gb ] || $(MAKE) -f Makefile.gb distclean
+	$(MAKE) -C libSpotOn clean
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build
+	dh $@
+
+binary: binary-indep binary-arch
+.PHONY: get-orig-source build build-arch build-indep clean binary-indep binary-arch binary install configure
+
+override_dh_usrlocal:
+
+#override_dh_auto_configure:
+#	qmake -o Makefile spot-on.qt5.pro
+
+override_dh_auto_install:
+
+override_dh_shlibdeps:
+	dh_shlibdeps -llibspoton -L$(CURDIR)/debian/libspoton0/usr/lib
+
+## checkout from subversion (add "subversion, svn2cl | subversion-tools (<< 1.7.5)" to Build-Depends)
+UURL = svn://svn.code.sf.net/p/spot-on/code/
+REV  = $(shell echo $(VER) | perl -ne 'print "$$1" if m/(?:git|svn|hg)(\d+)/;')
+$(PKG)_$(VER)$(DTYPE).orig.tar.xz: $(info I: REV=$(REV))
+	$(if $(wildcard $(PKG)-$(VER)),$(error $(PKG)-$(VER) exist, aborting..))
+	svn checkout --config-option config:miscellany:use-commit-times=yes -r $(REV) \
+		$(UURL) $(PKG)-$(VER) \
+	|| $(RM) -r $(PKG)-$(VER)
+	@echo "Clean-up..."
+	cd $(PKG)-$(VER) \
+	&& $(RM) -r -v \
+		GeoIP-1.5.1 \
+		libGeoIP \
+		libOpenSSL \
+		libcURL \
+		libSCTP \
+		libNTRU \
+		branches/archives \
+		libSpotOn/Libraries.win32 \
+		libSpotOn/Include.win32 \
+		SCTP \
+	&& [ -s ChangeLog ] || ( echo "# Generating ChangeLog..." \
+		; svn2cl --break-before-msg --include-rev \
+		| perl -0pi -e 's{(\d+\])[^:]+?:\s+}{$$1 }sgm;' ChangeLog) \
+	&& find . -depth -name ".svn" -exec $(RM) -r '{}' \;
+	@echo "# Packing..."
+	find -L $(PKG)-$(VER) -xdev -type f -print | sort \
+	| XZ_OPT="-6v" tar -caf "$(PKG)_$(VER)$(DTYPE).orig.tar.xz" -T- --owner=root --group=root --mode=a+rX \
+	&& $(RM) -r "$(PKG)-$(VER)"
+

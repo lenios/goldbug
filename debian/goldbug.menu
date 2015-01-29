@@ -1,0 +1,6 @@
+?package(goldbug):needs="X11"\
+	section="Applications/Network/Communication"\
+	title="GoldBug"\
+	command="/usr/bin/goldbug"\
+	longtitle="Goldbug: Secure Instant Messenger"\
+	icon="/usr/share/goldbug/goldbug.ico"

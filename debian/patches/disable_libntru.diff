@@ -1,0 +1,100 @@
+--- a/branches/0.18/spot-on-gui.qt5.pro
++++ b/branches/0.18/spot-on-gui.qt5.pro
+@@ -15,15 +15,13 @@
+ # 1.5.0 of the gcrypt library.
+ 
+ DEFINES	+= SPOTON_LINKED_WITH_LIBGEOIP \
+-	   SPOTON_LINKED_WITH_LIBNTRU \
+ 	   SPOTON_LINKED_WITH_LIBPTHREAD \
+ 	   SPOTON_SCTP_ENABLED
+ 
+ # Unfortunately, the clean target assumes too much knowledge
+ # about the internals of libNTRU and libSpotOn.
+ 
+-QMAKE_CLEAN     += Spot-On ../../libNTRU/*.so ../../libNTRU/src/*.o \
+-		   ../../libSpotOn/*.o ../../libSpotOn/*.so \
++QMAKE_CLEAN     += Spot-On ../../libSpotOn/*.o ../../libSpotOn/*.so \
+ 		   ../../libSpotOn/test
+ QMAKE_DISTCLEAN += -r temp .qmake.cache .qmake.stash
+ QMAKE_CXXFLAGS_RELEASE -= -O2
+@@ -34,12 +32,12 @@
+ 			  -Woverloaded-virtual -Wpointer-arith \
+                           -Wstack-protector -Wstrict-overflow=4
+ QMAKE_LFLAGS_RELEASE += -Wl,-rpath,/usr/local/spot-on/Lib
+-QMAKE_EXTRA_TARGETS = libntru libspoton purge
++QMAKE_EXTRA_TARGETS = libspoton purge
+ QMAKE_LFLAGS_RPATH =
+ INCLUDEPATH	+= . ../../. GUI
+-LIBS		+= -L../../libNTRU -L../../libSpotOn \
+-		   -lGeoIP -lcrypto -lgcrypt -lgpg-error -lntru -lspoton -lssl
+-PRE_TARGETDEPS = libntru.so libspoton.so
++LIBS		+= -L../../libSpotOn \
++		   -lGeoIP -lcrypto -lgcrypt -lgpg-error -lspoton -lssl
++PRE_TARGETDEPS = libspoton.so
+ OBJECTS_DIR = temp/obj
+ UI_DIR = temp/ui
+ MOC_DIR = temp/moc
+--- a/branches/0.18/Kernel/spot-on-kernel.qt5.pro
++++ b/branches/0.18/Kernel/spot-on-kernel.qt5.pro
+@@ -17,7 +17,6 @@
+ # 1.5.0 of the gcrypt library.
+ 
+ DEFINES += SPOTON_LINKED_WITH_LIBGEOIP \
+-   	   SPOTON_LINKED_WITH_LIBNTRU \
+ 	   SPOTON_LINKED_WITH_LIBPTHREAD \
+            SPOTON_SCTP_ENABLED
+ 
+@@ -35,13 +34,13 @@
+ 			  -Werror -Wextra -Wl,-z,relro \
+ 			  -Woverloaded-virtual -Wpointer-arith \
+                           -Wstack-protector -Wstrict-overflow=4
+-QMAKE_EXTRA_TARGETS = libntru libspoton purge
++QMAKE_EXTRA_TARGETS = libspoton purge
+ QMAKE_LFLAGS_RPATH =
+ INCLUDEPATH	+= . ../. ../../../.
+-LIBS		+= -L../../../libNTRU -L../../../libSpotOn \
++LIBS		+= -L../../../libSpotOn \
+ 		   -lGeoIP \
+-		   -lcrypto -lgcrypt -lgpg-error -lntru -lspoton -lssl
+-PRE_TARGETDEPS = libntru.so libspoton.so purge
++		   -lcrypto -lgcrypt -lgpg-error -lspoton -lssl
++PRE_TARGETDEPS = libspoton.so purge
+ OBJECTS_DIR = temp/obj
+ UI_DIR = temp/ui
+ MOC_DIR = temp/moc
+--- a/branches/0.18/goldbug-gui.qt5.pro
++++ b/branches/0.18/goldbug-gui.qt5.pro
+@@ -16,14 +16,13 @@
+ 
+ DEFINES	+= SPOTON_GOLDBUG \
+ 	   SPOTON_LINKED_WITH_LIBGEOIP \
+-	   SPOTON_LINKED_WITH_LIBNTRU \
+ 	   SPOTON_LINKED_WITH_LIBPTHREAD \
+ 	   SPOTON_SCTP_ENABLED
+ 
+ # Unfortunately, the clean target assumes too much knowledge
+ # about the internals of libNTRU and libSpotOn.
+ 
+-QMAKE_CLEAN     += GoldBug ../../libNTRU/*.so ../../libNTRU/src/*.o \
++QMAKE_CLEAN     += GoldBug \
+ 		   ../../libSpotOn/*.o ../../libSpotOn/*.so \
+ 		   ../../libSpotOn/test
+ QMAKE_DISTCLEAN += -r temp .qmake.cache .qmake.stash
+@@ -34,13 +33,12 @@
+ 			  -Werror -Wextra \
+ 			  -Woverloaded-virtual -Wpointer-arith \
+                           -Wstack-protector -Wstrict-overflow=4
+-QMAKE_LFLAGS_RELEASE += -Wl,-rpath,/usr/local/spot-on/Lib
+-QMAKE_EXTRA_TARGETS = libntru libspoton purge
++QMAKE_EXTRA_TARGETS = libspoton purge
+ QMAKE_LFLAGS_RPATH =
+ INCLUDEPATH	+= . ../../. GUI
+-LIBS		+= -L../../libNTRU -L../../libSpotOn \
+-		   -lGeoIP -lcrypto -lgcrypt -lgpg-error -lntru -lspoton -lssl
+-PRE_TARGETDEPS = libntru.so libspoton.so
++LIBS		+= -L../../libSpotOn \
++		   -lGeoIP -lcrypto -lgcrypt -lgpg-error -lspoton -lssl
++PRE_TARGETDEPS = libspoton.so
+ OBJECTS_DIR = temp/obj
+ UI_DIR = temp/ui
+ MOC_DIR = temp/moc

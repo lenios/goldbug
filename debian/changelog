@@ -1,0 +1,12 @@
+spot-on (0.18+svn4039-1) trusty; urgency=medium
+
+  * New upstream release
+
+ -- Richard Sellam <richard.sellam@orvidia.fr>  Thu, 29 Jan 2015 20:11:41 +0100
+
+spot-on (0.17+svn3714-1) trusty; urgency=low
+
+  * Initial release (Closes: #736968, #728669)
+
+ -- Richard Sellam <richard.sellam@orvidia.fr>  Mon, 10 Mar 2014 20:51:34 +0100
+

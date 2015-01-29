@@ -1,0 +1,16 @@
+--- a/branches/0.18/Kernel/spot-on-kernel.qt5.pro
++++ b/branches/0.18/Kernel/spot-on-kernel.qt5.pro
+@@ -35,12 +34,11 @@
+ 			  -Werror -Wextra -Wl,-z,relro \
+ 			  -Woverloaded-virtual -Wpointer-arith \
+                           -Wstack-protector -Wstrict-overflow=4
+-QMAKE_LFLAGS_RELEASE += -Wl,-rpath,/usr/local/spot-on/Lib -L/usr/local/lib
+ QMAKE_EXTRA_TARGETS = libntru libspoton purge
+ QMAKE_LFLAGS_RPATH =
+ INCLUDEPATH	+= . ../. ../../../.
+ LIBS		+= -L../../../libNTRU -L../../../libSpotOn \
+-		   -L/usr/local/lib -lGeoIP \
++		   -lGeoIP \
+ 		   -lcrypto -lgcrypt -lgpg-error -lntru -lspoton -lssl
+ PRE_TARGETDEPS = libntru.so libspoton.so purge
+ OBJECTS_DIR = temp/obj

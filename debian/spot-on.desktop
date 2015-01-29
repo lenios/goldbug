@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Spot-On
+Name[en_US]=Spot-On
+GenericName=
+Exec=Spot-On
+Terminal=false
+Type=Application
+Icon=/usr/share/spot-on/Icons/Resources/spotonbutton64.ico
+Categories=Application;Qt;Network;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;image/gif;image/jpeg;image/png;
+StartupNotify=true

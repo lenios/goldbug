@@ -1,0 +1,4 @@
+fix_soname.diff
+fix_rpath.diff
+disable_libntru.diff
+skip_goldbug_kernel.diff

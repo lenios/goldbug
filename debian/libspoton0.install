@@ -1,0 +1,2 @@
+#! /usr/bin/dh-exec
+libSpotOn/libspoton.so.0.17 usr/lib/${DEB_HOST_MULTIARCH}

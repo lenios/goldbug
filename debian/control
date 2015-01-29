@@ -1,0 +1,82 @@
+Source: spot-on
+Section: net
+Priority: optional
+Maintainer: Richard Sellam <richard.sellam@orvidia.fr>
+Build-Depends: debhelper (>= 9),
+               dh-exec (>=0.3),
+               hardening-wrapper,
+               libgcrypt11-dev,
+               libgeoip-dev,
+               libgstreamer-plugins-base0.10-dev,
+               libgstreamer0.10-dev,
+               libpulse-dev,
+               libqt5network5,
+               libqt5xml5,
+               libsctp-dev,
+               libsqlite3-dev,
+               libssl-dev,
+               libxml2-dev,
+               qt5-default,
+               qt5-qmake,
+               qtbase5-dev-tools,
+               qtmultimedia5-dev,
+               quilt
+Standards-Version: 3.9.5
+Homepage: http://spot-on.sourceforge.net/
+
+Package: libspoton0
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Libraries that allow other applications to share URLs with Spot-On
+ Spot-On is an exploratory research project investigating a variety of unique 
+ communications protocols. It enables multi-encrypted instant messaging, 
+ decentral p2p email, public IRC-like chat channels and filesharing with 
+ multi-encryption (SSL, RSA, AES...), based on the Echoed Message and Presence 
+ Protocol (EMPP).
+ .
+ This package includes the 'libspoton' library that allows to share URLs with 
+ Spot-On.
+
+Package: libspoton0-dev
+Provides: libspoton-dev
+Conflicts: libspoton-dev
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libspoton0 (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
+Description: development files for libspoton library
+ The libspoton library allows one to share URLs with Spot-On. 
+ .
+ This package contains the development files.
+
+Package: spot-on
+Architecture: any
+Multi-Arch: foreign
+Depends: libspoton0, ${misc:Depends}, ${shlibs:Depends}, geoip-database
+Suggests: haveged
+Description: research project using a variety of unique communications protocols
+ Spot-On is an exploratory research project investigating a variety of unique 
+ communications protocols. It enables multi-encrypted instant messaging, 
+ decentral p2p email, public IRC-like chat channels and filesharing with 
+ multi-encryption (SSL, RSA, AES...), based on the Echoed Message and Presence 
+ Protocol (EMPP).
+
+
+Package: goldbug
+Description: fully decentralized instant messaging, chat and email client
+ Goldbug is a fully decentralized peer-to-peer or friend-to-friend Instant Messenger
+ that aims to provide secure communications by using multi-encryption (RSA keys, SSL
+ and end-to-end encryption) and the Echo Protocol (EMPP = Echoed Messaging and Presence
+ Protocol) to avoid tracking.
+ .
+ Random fake messages can be sent as well from time to time to avoid tracking. Goldbug
+ prevents data retention for the same reasons and provides Web-of-Trust (WoT) Deniability.
+ .
+ It also offers decentralized and encrypted email and decentralized public E*IRC Chat for
+ groups of friends to chat privately. Signatures are available for authentication of chat
+ and emails.
+Architecture: any
+Multi-Arch: foreign
+Depends: ${shlibs:Depends}, ${misc:Depends}, libspoton0, spot-on, geoip-database
