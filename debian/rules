@@ -17,7 +17,7 @@ PKD  = $(abspath $(dir $(MAKEFILE_LIST)))
 PKG  = $(word 2,$(shell dpkg-parsechangelog -l$(PKD)/changelog | grep ^Source))
 VER ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog | perl -ne 'print $$1 if m{^Version:\s+(?:\d+:)?(\d.*)(?:\-\d+.*)};')
 
-VERSION=0.18
+VERSION=trunk
 
 ## http://wiki.debian.org/onlyjob/get-orig-source
 .PHONY: get-orig-source

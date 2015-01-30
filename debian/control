@@ -5,6 +5,7 @@ Maintainer: Richard Sellam <richard.sellam@orvidia.fr>
 Build-Depends: debhelper (>= 9),
                dh-exec (>=0.3),
                hardening-wrapper,
+               libcurl-dev,
                libgcrypt11-dev,
                libgeoip-dev,
                libgstreamer-plugins-base0.10-dev,
@@ -23,6 +24,8 @@ Build-Depends: debhelper (>= 9),
                quilt
 Standards-Version: 3.9.5
 Homepage: http://spot-on.sourceforge.net/
+Vcs-Browser: https://github.com/lenios/goldbug
+Vcs-Git: git://github.com/lenios/goldbug.git
 
 Package: libspoton0
 Architecture: any

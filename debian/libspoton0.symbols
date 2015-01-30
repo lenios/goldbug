@@ -1,12 +1,12 @@
 libspoton.so libspoton0 #MINVER#
-libspoton_close@Base 0.17+svn3714-1
-libspoton_deregister_kernel@Base 0.17+svn3714-1
-libspoton_enable_sqlite_cache@Base 0.17+svn3714-1
-libspoton_init_a@Base 0.17+svn3714-1
-libspoton_init_b@Base 0.17+svn3714-1
-libspoton_is_kernel_registered@Base 0.17+svn3714-1
-libspoton_register_kernel@Base 0.17+svn3714-1
-libspoton_registered_kernel_pid@Base 0.17+svn3714-1
-libspoton_save_url@Base 0.17+svn3714-1
-libspoton_strerror@Base 0.17+svn3714-1
+ libspoton_close@Base 0.18+svn4039-1
+ libspoton_deregister_kernel@Base 0.18+svn4039-1
+ libspoton_enable_sqlite_cache@Base 0.18+svn4039-1
+ libspoton_init_a@Base 0.18+svn4039-1
+ libspoton_init_b@Base 0.18+svn4039-1
+ libspoton_is_kernel_registered@Base 0.18+svn4039-1
+ libspoton_register_kernel@Base 0.18+svn4039-1
+ libspoton_registered_kernel_pid@Base 0.18+svn4039-1
+ libspoton_save_url@Base 0.18+svn4039-1
+ libspoton_strerror@Base 0.18+svn4039-1
 

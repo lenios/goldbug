@@ -1,6 +1,6 @@
-branches/0.18/Icons/* usr/share/spot-on/Icons
-branches/0.18/Sounds/* usr/share/spot-on/Sounds
-branches/0.18/Spot-On usr/bin
-branches/0.18/Spot-On-Kernel usr/bin
-branches/0.18/Translations/* usr/share/spot-on/Translations
+branches/trunk/Icons/* usr/share/spot-on/Icons
+branches/trunk/Sounds/* usr/share/spot-on/Sounds
+branches/trunk/Spot-On usr/bin
+branches/trunk/Spot-On-Kernel usr/bin
+branches/trunk/Translations/* usr/share/spot-on/Translations
 debian/spot-on.desktop usr/share/applications

@@ -31,8 +31,8 @@
  
  purge:
  	rm -f *~*
---- a/branches/0.18/Kernel/spot-on-kernel.qt5.pro
-+++ b/branches/0.18/Kernel/spot-on-kernel.qt5.pro
+--- a/branches/trunk/Kernel/spot-on-kernel.qt5.pro
++++ b/branches/trunk/Kernel/spot-on-kernel.qt5.pro
 @@ -26,7 +26,7 @@
  
  QMAKE_CLEAN     += ../Spot-On-Kernel ../../../libNTRU/*.so \
